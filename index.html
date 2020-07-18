@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>E-voting</title>
+  <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="semantic/dist/semantic.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    #myInput {
+      background-image: url('/css/searchicon.png');
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      width: 80%;
+      font-size: 16px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+
+    #myTable {
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #ddd;
+      font-size: 18px;
+    }
+
+    #myTable th,
+    #myTable td {
+      text-align: left;
+      padding: 12px;
+    }
+
+    #myTable tr {
+      border-bottom: 1px solid #ddd;
+    }
+
+    #myTable tr.header,
+    #myTable tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .topnav {
+      overflow: hidden;
+      background-color: #e9e9e9;
+    }
+
+
+
+
+    .topnav .search-container {
+      float: left;
+    }
+
+    .topnav input[type=text] {
+      padding: 6px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      margin-left: 8px;
+      font-size: 17px;
+      border: none;
+    }
+
+    .topnav .search-container button {
+      float: right;
+      padding: 11px 17px;
+      margin-top: 8px;
+      margin-right: 10px;
+      background: rgb(161, 153, 153);
+      font-size: 17px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .topnav .search-container button:hover {
+      background: #ccc;
+    }
+
+
+    .count {
+      width: 340px;
+      height: 100px;
+      border-radius: 00%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 50px;
+      font-family: verdana;
+      float: right;
+      padding-bottom: 30px;
+      margin-left: 30px;
+      text-shadow: 1px 1px black;
+      padding-left: 10px;
+      padding-top: 5px;
+    }
+
+    .trans {
+      position: relative;
+      -webkit-animation-name: bounceIn;
+      animation-name: "bounceIn";
+      -webkit-animation: bounceIn 5s infinite;
+      /* Safari 4.0 - 8.0 */
+      animation: bounceIn 5s infinite;
+    }
+
+    /* Safari 4.0 - 8.0 */
+
+    /* Standard syntax */
+    @keyframes mymove {
+      0% {
+        left: 0px;
+      }
+
+      25% {
+        left: 200px;
+      }
+
+      75% {
+        left: 50px
+      }
+
+      100% {
+        left: 100px;
+      }
+    }
+
+    .threed:hover {
+      box-shadow:
+        1px 1px #111111,
+        2px 2px #000000,
+        3px 3px #050505;
+      -webkit-transform: translateX(-3px);
+      transform: translateX(-3px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <img id="edit" src="F:\work\E-voting\PurpleAdmin-Free-Admin-Template-master\images\invntedlogofull.png"
+          height="100px" width="220px" style="padding-top:30px; padding-bottom: 30px; padding-right:40px;" />
+        <a class=" navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo" /></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
+              aria-expanded="false">
+              <div class="nav-profile-img">
+                <img src="images/faces/face1.jpg" alt="image">
+                <span class="availability-status online"></span>
+              </div>
+              <div class="nav-profile-text">
+                <p class="mb-1 text-black">Admin</p>
+              </div>
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="F:\work\E-voting\PurpleAdmin-Free-Admin-Template-master\adminlogin.html">
+                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                Signout
+              </a>
+            </div>
+          </li>
+          <li class="nav-item d-none d-lg-block full-screen-link">
+            <a class="nav-link">
+              <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <a href="#" class="nav-link">
+              <div class="nav-profile-image">
+                <img src="images/faces/face1.jpg" alt="profile">
+                <span class="login-status online"></span>
+                <!--change to offline or busy as needed-->
+              </div>
+              <div class="nav-profile-text d-flex flex-column">
+                <span class="font-weight-bold mb-2">Admin </span>
+                <span class="text-secondary text-small"> Manager</span>
+              </div>
+              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <span class="menu-title">Dashboard</span>
+              <i class="mdi mdi-home menu-icon" style="color:#3a8bc0"></i>
+            </a>
+          </li>
+          <li class=" nav-item">
+            <a class="nav-link"
+              href="F:\work\E-voting\PurpleAdmin-Free-Admin-Template-master\pages\tables\basic-table.html">
+              <span class="menu-title">Company Managment</span>
+              <i class="mdi mdi-account-convert menu-icon" style="color:#3a8bc0"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              href="F:\work\E-voting\PurpleAdmin-Free-Admin-Template-master\pages\forms\basic_elements.html">
+              <span class="menu-title">Add New Company</span>
+              <i class="mdi mdi-contacts menu-icon" style="color:#3a8bc0"></i>
+            </a>
+          </li>
+          <li class=" nav-item">
+            <a class="nav-link"
+              href="F:\work\E-voting\PurpleAdmin-Free-Admin-Template-master\pages\forms\edit_elements.html">
+              <span class="menu-title">Edit Company</span>
+              <i class="mdi mdi-lead-pencil menu-icon" style="color:#3a8bc0"></i>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class=" main-panel">
+        <div class="content-wrapper" style="background-color: #e0f6f8;">
+          <div class="page-header">
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-info text-white mr-2">
+                <i class="mdi mdi-home"></i>
+              </span>
+              Dashboard
+            </h3>
+          </div>
+          <div class="trans">
+          </div>
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="threed">
+                    <div class="clearfix">
+                      <h4 class="card-title float-left">Companies Voting Success</h4>
+                      <div id="visit-sale-chart-legend"
+                        class="rounded-legend legend-horizontal legend-top-right float-right"></div>
+                    </div>
+                    <canvas id="visit-sale-chart" class="mt-4"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card" style="background-color:rgb(255, 254, 254);">
+                <div class="card-body">
+                  <div class="trans">
+
+                    <div class="card bg-danger text-white">
+                      <div class="col-md-12">
+                        <div class="card-body"><strong>Total Companies-100</strong></div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="trans">
+                    <div class="card bg-success text-white">
+                      <div class="col-md-12 ">
+                        <div class="card-body">
+                          <strong>Active Companies-40</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="trans">
+                    <div class="card bg-info text-white" center>
+                      <div class="col-md-12 ">
+                        <div class="card-body" style="align-content:center;"><strong>Inactive
+                            Companies-60</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card" style="background-color:rgb(255, 254, 254); align-content: center">
+                <div class="card-body" id="transition-side">
+                  <div class="card bg-success text-white">
+                    <div class="col-md-12 ">
+                      <div class="card-body"><strong>Voters Count</strong></div>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+                  <div style="text-align: center;">
+                    <div>
+                      <div class="card bg-info text-white">
+                        <div class="col-md-12 ">
+                          <i style="font-size:70px; padding-top:30px;" class="fa">&#xf0e0;</i>
+                          <div class="count">126</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">My Companies</h4>
+                  <div class="topnav">
+                    <div class="search-container">
+                      <form action="/action_page.php">
+                        <input type="text" placeholder="Search.." name="search" id="myInput" onkeyup="myFunction()">
+                        <button type="submit" btn btn-gradient-danger><i class="fa fa-search"></i></button>
+                      </form>
+                    </div>
+                  </div>
+                  <table id="myTable">
+                    <tr>
+                      <td>HCl</td>
+                      <td>
+                        <button id="shift" type="button" class="btn btn-gradient-danger btn-rounded btn-icon"
+                          style="float: right;">
+                          43
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>TCS</td>
+                      <td>
+                        <button id="shift" type="button" class="btn btn-gradient-danger btn-rounded btn-icon"
+                          style="float: right;">
+                          3
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Infosys</td>
+                      <td>
+                        <button id="shift" type="button" class="btn btn-gradient-danger btn-rounded btn-icon"
+                          style="float: right;">
+                          60
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Microsoft</td>
+                      <td>
+                        <button id="shift" type="button" class="btn btn-gradient-danger btn-rounded btn-icon"
+                          style="float: right;">
+                          23
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="footer" style="background-color: #e0f6f8; color:black;">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2019
+                All rights reserved.</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><strong>Cognoscente
+                  Invnted
+                  Private
+                  Limited</strong>
+                <img style="height:20px; width:20px;"
+                  src="F:\work\E-voting\PurpleAdmin-Free-Admin-Template-master\images\sahi wala.png">
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    $(document).ready(function () {
+      var counters = $(".count");
+      var countersQuantity = counters.length;
+      var counter = [];
+      for (i = 0; i < countersQuantity; i++) {
+        counter[i] = parseInt(counters[i].innerHTML);
+      }
+      var count = function (start, value, id) {
+        var localStart = start;
+        setInterval(function () {
+          if (localStart < value) {
+            localStart++;
+            counters[id].innerHTML = localStart;
+          }
+        }, 40);
+      }
+      for (j = 0; j < countersQuantity; j++) {
+        count(0, counter[j], j);
+      }
+    });
+  </script>
+  <script>
+    $('.transition-side')
+      .transition({
+        animation: 'scale',
+        duration: '2s',
+        onComplete: function () {
+          alert('done');
+        }
+      });
+    $('#transition-side')
+      .transition('fade left');
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+  <script src="vendors/js/vendor.bundle.addons.js"></script>
+  <script src="js/off-canvas.js"></script>
+  <script src="js/misc.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+
+</html>

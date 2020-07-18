@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>E-Voting</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../../images/faces/scaled_logo.png" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+    $("#add").click(function() {
+        var lastField = $("#buildyourform div:last");
+        var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
+        var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field" + intId + "\"/>");
+        fieldWrapper.data("idx", intId);
+        var fName = $("<input type=\"text\" class=\"fieldname\" />");
+        var removeButton = $("<input type=\"button\" class=\"remove\" value=\"X\" />");
+        removeButton.click(function() {
+            $(this).parent().remove();
+        });
+        fieldWrapper.append(fName);
+        //fieldWrapper.append(fType);
+        fieldWrapper.append(removeButton);
+        $("#buildyourform").append(fieldWrapper);
+    });
+    $("#preview").click(function() {
+        $("#yourform").remove();
+        var fieldSet = $("<fieldset id=\"yourform\"><legend>Your Form</legend></fieldset>");
+        $("#buildyourform div").each(function() {
+            var id = "input" + $(this).attr("id").replace("field","");
+            var label = $("<label for=\"" + id + "\">" + $(this).find("input.fieldname").first().val() + "</label>");
+            var input;
+            switch ($(this).find("select.fieldtype").first().val()) {
+                case "textbox":
+                    input = $("<input type=\"text\" id=\"" + id + "\" name=\"" + id + "\" />");
+                    break;
+                case "textarea":
+                    input = $("<textarea id=\"" + id + "\" name=\"" + id + "\" ></textarea>");
+                    break;    
+            }
+            fieldSet.append(label);
+            fieldSet.append(input);
+        });
+        $("body").append(fieldSet);
+    });
+});
+  </script>
+  <style>
+  .fieldname{
+    float: right;
+    margin-left: 250px;
+    
+  }
+  .remove{
+    float: right;
+    background-color: rgb(227, 224, 230);
+  }
+  input.fieldname{
+   color: #000;
+   border: 1px solid rgb(137, 190, 233);
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a href="dashboard.html"><img src="../../images/faces/scaled_logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="../../dashboard.html"><img src="../../images/faces/scaled_logo.png" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <div class="search-field d-none d-md-block">
+          <form class="d-flex align-items-center h-100" action="#">
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>                
+              </div>
+              <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+            </div>
+          </form>
+        </div>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <div class="nav-profile-img">
+                <img src="../../images/faces/scaled_logo.png" alt="image">
+                <span class="availability-status online"></span>             
+              </div>
+              <div class="nav-profile-text">
+                <p class="mb-1 text-black">CIPL</p>
+              </div>
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="../../index.html">
+                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                Signout
+              </a>
+            </div>
+          </li>
+          <li class="nav-item d-none d-lg-block full-screen-link">
+            <a class="nav-link">
+              <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <a href="#" class="nav-link">
+              <div class="nav-profile-image">
+                <img src="../../images/faces/scaled_logo.png" alt="profile">
+                <span class="login-status online"></span> <!--change to offline or busy as needed-->              
+              </div>
+              <div class="nav-profile-text d-flex flex-column">
+                <span class="font-weight-bold mb-2">CIPL</span>
+                <span class="text-secondary text-small">Admin</span>
+              </div>
+              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../main/dashboard.html">
+              <span class="menu-title">Dashboard</span>
+              <i class="mdi mdi-home menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../pages/user_management/basic-table.html">
+              <span class="menu-title">User Management</span>
+              <i class="mdi mdi-account-multiple menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../pages/addnewuser/addnewuser.html">
+              <span class="menu-title">Add New User</span>
+              <i class="mdi mdi-account-plus menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="../../pages/edit-user/edit_user.html">
+                <span class="menu-title">Edit User</span>
+                <i class="mdi mdi-pencil menu-icon"></i>
+              </a>
+              <hr width="100%">
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../pages/vote_management/manage_vote.html">
+                <span class="menu-title">Vote Management</span>
+                <i class="mdi mdi-account-check menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="../../pages/create-vote/create_vote.html">
+                      <span class="menu-title">Add New Vote</span>
+                      <i class="mdi mdi-plus menu-icon"></i>
+                    </a>
+                  </li>
+                  
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../pages/edit_vote/edit_vote.html">
+                          <span class="menu-title">Edit Vote</span>
+                          <i class="mdimdi-pencil  menu-icon"></i>
+                        </a>
+                        <hr width="100%">
+                      </li>
+                      <li class="nav-item">
+                            <a class="nav-link" href="../../pages/vote_title_management/title_management.html">
+                              <span class="menu-title">Title Management</span>
+                              <i class="mdi mdi-contacts menu-icon"></i>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="../../pages/addnewtitle/add_title.html">
+                                <span class="menu-title">Add New Title</span>
+                                <i class="mdi mdi-plus menu-icon"></i>
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../pages/edit-title/edit_title.html">
+                                  <span class="menu-title">Edit Title</span>
+                                  <i class="mdi mdi-pencil menu-icon"></i>
+                                </a>
+                            </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">        
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h3 class="page-title">
+                  <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                    <i class="mdi mdi-plus"></i>                 
+                  </span>
+                  Edit Title
+                </h3>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Add Title</h4>
+                  <p class="card-description">
+                 Add Title
+                  </p>
+                  <form class="forms-sample">
+                        <div class="form-group row">
+                          <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Voting Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Voting Name">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Voting ID</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Voting ID">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Title</label>
+                                <div class="col-sm-9">
+                                  <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Voting ID">
+                                </div>
+                                
+                                    <fieldset id="buildyourform" class="col-sm-6">
+                                      </fieldset>
+                                    <div>
+                                      <input type="button" value="Add an Option" class="btn btn-link" id="add" />
+                                      <br>
+                                      <br>
+                                      <button type="submit" class="btn btn-gradient-primary btn-sm" style="margin-left: 40px">Submit</button>
+                                      <br>
+                                      <br>
+                                    </div>
+                        </div>
+                        <a class="btn btn-gradient-primary mr-2" href="../../main/dashboard.html">Edit and Submit</a>
+                        <a class="btn btn-light" href="../../main/dashboard.html">Cancel</a>
+                      </form>
+                      </div>
+                </div>
+              </div>
+           
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2019 All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Cognoscente Invnted Pvt. Ltd. <img src="../../images/faces/scaled_logo.png" width="16px" height="20px"/></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../../vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="../../js/off-canvas.js"></script>
+  <script src="../../js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="../../js/file-upload.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
